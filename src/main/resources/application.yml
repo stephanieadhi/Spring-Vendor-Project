@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties: 
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format-sql: true
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vendor
+    username: postgres
+    password: 123
+    driverClassName: org.postgresql.Driver
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+  redis:
+    host: localhost
+    port: 6379
+
+application:
+  name: RequestRateLimiter
+  cloud:
+    gateway:
+      routes:
+        - id: rateLimiterRoute
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
