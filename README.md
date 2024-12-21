@@ -61,3 +61,6 @@ This application uses a PostgreSQL database. Below are the instructions to set u
     	  vendorname varchar(255) NULL,
     	  CONSTRAINT vendor_pkey PRIMARY KEY (id)
      );
+
+## Web Page View - Login
+![image](https://github.com/user-attachments/assets/bdd91bab-cf72-4760-8c56-8f7e62bfedf8)
